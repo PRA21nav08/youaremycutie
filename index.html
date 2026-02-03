@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Tanishka ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet"> 
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+:root{--primary:#ff4d6d;--glass:rgba(255,255,255,.95)}
+body{margin:0;font-family:'Montserrat',sans-serif;background:#ffd6e0;height:100vh;display:flex;justify-content:center;align-items:center;overflow:hidden}
+
+.heart-bg{position:fixed;top:-10%;font-size:22px;animation:float linear forwards;color:rgba(255,77,109,.35);z-index:0}
+@keyframes float{to{transform:translateY(110vh) rotate(360deg)}}
+
+.glass-card{background:var(--glass);backdrop-filter:blur(12px);border-radius:30px;padding:40px;text-align:center;width:92%;max-width:480px;box-shadow:0 20px 60px rgba(255,77,109,.3);position:relative;z-index:2;border:2px solid white}
+h1,h3,.handwritten{font-family:'Dancing Script',cursive;color:var(--primary)}
+
+.pulse-btn{background:var(--primary);color:white;border:none;border-radius:50px;cursor:pointer;animation:heartbeat 1.2s infinite;box-shadow:0 10px 20px rgba(255,77,109,.4)}
+@keyframes heartbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+
+.hidden{display:none}
+.moment-img{width:85%;border-radius:15px;margin-bottom:15px;border:4px solid white}
+
+.scratch-container{position:relative;width:280px;height:280px;margin:auto;border-radius:15px;overflow:hidden}
+.scratch-text{position:absolute;inset:0;z-index:1;padding:10px;box-sizing:border-box}
+canvas{position:absolute;inset:0;z-index:2}
+
+.heart-frame{
+width:220px;height:200px;margin:auto;
+clip-path:path("M110 190 L20 95 A55 55 0 1 1 110 55 A55 55 0 1 1 200 95 Z");
+overflow:hidden;border:4px solid var(--primary)
+}
+.heart-frame img{width:100%;height:100%;object-fit:cover}
+
+#crySection img{width:150px;border-radius:12px;margin-top:10px}
+</style>
+</head>
+<body>
+
+<div id="hearts"></div>
+
+<div class="glass-card">
+
+<!-- STAGE 1 -->
+<div id="stage1">
+<h1>Hey Tanishka ❤️</h1>
+
+<button id="openBtn" class="pulse-btn" onclick="startApp()" style="padding:15px 35px;margin-top:10px">Open My Heart</button>
+
+<div id="askButtons" class="hidden" style="margin-top:20px">
+<p>Will you be my Valentine?</p>
+<button id="yesBtn" class="pulse-btn" style="padding:14px 40px;font-size:1.1rem;margin:10px">YES ❤️</button>
+<button id="noBtn" style="padding:8px 18px;border-radius:20px;border:1px solid #ffccd5;background:white">No</button>
+</div>
+
+<div id="crySection" class="hidden">
+<p class="handwritten">🥺 Why are you doing this to me...</p>
+<img src="catcrying.gif">
+</div>
+</div>
+
+<!-- STAGE 2 -->
+<div id="stage2" class="hidden">
+<h3>Do you remember these moments?</h3>
+
+<div id="moment1">
+<img src="moment1.jpeg" class="moment-img">
+<p>When I wasn’t able to reach your birthday, I felt really bad… but when I did something and saw you happy, that meant everything to me ❤️</p>
+<button onclick="nextMoment(2)" class="pulse-btn" style="padding:8px 20px">Next →</button>
+</div>
+
+<div id="moment2" class="hidden">
+<p><i>Scratch to reveal ❤️</i></p>
+<div class="scratch-container">
+<div class="scratch-text">
+<img src="moment2.jpeg" class="moment-img">
+<p style="font-weight:600">The very first photo of us as a couple to be 📸❤️</p>
+</div>
+<canvas id="scratchCanvas"></canvas>
+</div>
+<button onclick="showFinal()" class="pulse-btn" style="padding:8px 20px;margin-top:15px">Final Page 💌</button>
+</div>
+</div>
+
+<!-- STAGE 3 -->
+<div id="stage3" class="hidden">
+<div class="heart-frame">
+<img src="us.jpeg">
+</div>
+<p class="handwritten" id="finalText" style="margin-top:20px;font-size:1.1rem;line-height:1.6"></p>
+</div>
+
+</div>
+
+<audio id="suspense" src="suspense.mp3" loop></audio>
+<audio id="song" src="song2.mp3"></audio>
+
+<script>
+/* Floating hearts (limited for performance) */
+setInterval(()=>{
+if(document.querySelectorAll(".heart-bg").length > 25) return;
+let h=document.createElement("div");
+h.className="heart-bg";
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"vw";
+h.style.animationDuration=(Math.random()*3+2)+"s";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),5000);
+},400);
+
+/* Start */
+function startApp(){
+document.getElementById("openBtn").classList.add("hidden");
+document.getElementById("askButtons").classList.remove("hidden");
+let suspense=document.getElementById("suspense");
+suspense.volume=0.5;
+suspense.play().catch(()=>{});
+}
+
+/* No button escape inside card */
+let noCount=0;
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseover",()=>{
+if(noCount<4){
+noBtn.style.position="absolute";
+noBtn.style.left=Math.random()*60+"%";
+noBtn.style.top=Math.random()*60+"%";
+noCount++;
+}else{
+document.getElementById("crySection").classList.remove("hidden");
+}
+});
+
+/* YES */
+document.getElementById("yesBtn").onclick=()=>{
+confetti({particleCount:200,spread:80});
+document.getElementById("stage1").classList.add("hidden");
+document.getElementById("stage2").classList.remove("hidden");
+document.getElementById("suspense").pause();
+}
+
+/* Moments */
+function nextMoment(){
+document.getElementById("moment1").classList.add("hidden");
+document.getElementById("moment2").classList.remove("hidden");
+initScratch();
+}
+
+/* Scratch */
+function initScratch(){
+let canvas=document.getElementById("scratchCanvas");
+let ctx=canvas.getContext("2d");
+canvas.width=280;canvas.height=280;
+ctx.fillStyle="#ccc";ctx.fillRect(0,0,280,280);
+ctx.globalCompositeOperation="destination-out";
+function scratch(e){
+let r=canvas.getBoundingClientRect();
+let x=(e.clientX||e.touches[0].clientX)-r.left;
+let y=(e.clientY||e.touches[0].clientY)-r.top;
+ctx.beginPath();ctx.arc(x,y,25,0,Math.PI*2);ctx.fill();
+}
+canvas.addEventListener("mousedown",scratch);
+canvas.addEventListener("touchstart",e=>{e.preventDefault();scratch(e)});
+canvas.addEventListener("mousemove",scratch);
+canvas.addEventListener("touchmove",e=>{e.preventDefault();scratch(e)});
+}
+
+/* Final */
+function showFinal(){
+document.getElementById("stage2").classList.add("hidden");
+document.getElementById("stage3").classList.remove("hidden");
+let song=document.getElementById("song");
+song.currentTime=20;
+song.volume=0.7;
+song.play().catch(()=>{});
+
+let msg=`NEVER overthink anything my cutie ❤️  
+Yeh toh tumhara bhi favorite hoga ig see how cutee it is thats not perfect but very very bautiful for me as even after chaos we can do better and i have you im very happy ❤️  
+I missed you Tanishka! You make every moment special. ❤️`;
+
+let i=0;
+function type(){
+if(i<msg.length){
+document.getElementById("finalText").innerHTML+=msg.charAt(i);
+i++;setTimeout(type,40);
+}}
+type();
+}
+</script>
+</body>
+</html>
