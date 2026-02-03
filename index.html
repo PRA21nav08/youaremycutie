@@ -5,33 +5,84 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Tanishka ❤️</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">    
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
 :root{--primary:#ff4d6d;--glass:rgba(255,255,255,.95)}
-body{margin:0;font-family:'Montserrat',sans-serif;background:#ffd6e0;height:100vh;display:flex;justify-content:center;align-items:center;overflow:hidden}
 
+body{
+margin:0;
+font-family:'Montserrat',sans-serif;
+background:#ffd6e0;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px 0;
+}
+
+/* Floating hearts */
 .heart-bg{position:fixed;top:-10%;font-size:22px;animation:float linear forwards;color:rgba(255,77,109,.35);z-index:0}
 @keyframes float{to{transform:translateY(110vh) rotate(360deg)}}
 
-.glass-card{background:var(--glass);backdrop-filter:blur(12px);border-radius:30px;padding:40px;text-align:center;width:92%;max-width:480px;box-shadow:0 20px 60px rgba(255,77,109,.3);position:relative;z-index:2;border:2px solid white}
-h1,h3,.handwritten{font-family:'Dancing Script',cursive;color:var(--primary)}
+/* Card */
+.glass-card{
+background:var(--glass);
+backdrop-filter:blur(12px);
+border-radius:30px;
+padding:5vw;
+text-align:center;
+width:90%;
+max-width:480px;
+box-shadow:0 20px 60px rgba(255,77,109,.3);
+position:relative;
+z-index:2;
+border:2px solid white;
+max-height:95vh;
+overflow-y:auto;
+}
 
-.pulse-btn{background:var(--primary);color:white;border:none;border-radius:50px;cursor:pointer;animation:heartbeat 1.2s infinite;box-shadow:0 10px 20px rgba(255,77,109,.4)}
+h1{font-family:'Dancing Script',cursive;color:var(--primary);font-size:6vw}
+h3{font-family:'Dancing Script',cursive;color:var(--primary);font-size:4.5vw}
+.handwritten{font-family:'Dancing Script',cursive;color:var(--primary)}
+
+.pulse-btn{
+background:var(--primary);
+color:white;
+border:none;
+border-radius:50px;
+cursor:pointer;
+animation:heartbeat 1.2s infinite;
+box-shadow:0 10px 20px rgba(255,77,109,.4);
+font-size:3.5vw;
+padding:10px 25px;
+}
 @keyframes heartbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
 
 .hidden{display:none}
-.moment-img{width:85%;border-radius:15px;margin-bottom:15px;border:4px solid white}
+.moment-img{width:100%;border-radius:15px;margin-bottom:15px;border:4px solid white}
 
-.scratch-container{position:relative;width:280px;height:280px;margin:auto;border-radius:15px;overflow:hidden}
+.scratch-container{
+position:relative;
+width:90%;
+max-width:280px;
+aspect-ratio:1/1;
+margin:auto;
+border-radius:15px;
+overflow:hidden;
+}
 .scratch-text{position:absolute;inset:0;z-index:1;padding:10px;box-sizing:border-box}
 canvas{position:absolute;inset:0;z-index:2}
 
 .heart-frame{
-width:220px;height:200px;margin:auto;
+width:70%;
+max-width:220px;
+aspect-ratio:11/10;
+margin:auto;
 clip-path:path("M110 190 L20 95 A55 55 0 1 1 110 55 A55 55 0 1 1 200 95 Z");
-overflow:hidden;border:4px solid var(--primary)
+overflow:hidden;
+border:4px solid var(--primary);
 }
 .heart-frame img{width:100%;height:100%;object-fit:cover}
 
@@ -46,11 +97,11 @@ overflow:hidden;border:4px solid var(--primary)
 
 <div id="stage1">
 <h1>Hey Tanishka ❤️</h1>
-<button id="openBtn" class="pulse-btn" onclick="startApp()" style="padding:15px 35px;margin-top:10px">Open My Heart</button>
+<button id="openBtn" class="pulse-btn" onclick="startApp()">Open My Heart</button>
 
 <div id="askButtons" class="hidden" style="margin-top:20px">
 <p>Will you be my Valentine?</p>
-<button id="yesBtn" class="pulse-btn" style="padding:14px 40px;font-size:1.1rem;margin:10px">YES ❤️</button>
+<button id="yesBtn" class="pulse-btn">YES ❤️</button>
 <button id="noBtn" style="padding:8px 18px;border-radius:20px;border:1px solid #ffccd5;background:white">No</button>
 </div>
 
@@ -66,7 +117,7 @@ overflow:hidden;border:4px solid var(--primary)
 <div id="moment1">
 <img src="moment1.jpeg" class="moment-img">
 <p>When I wasn’t able to reach your birthday, I felt really bad… but when I did something and saw you happy, that meant everything to me ❤️</p>
-<button onclick="nextMoment()" class="pulse-btn" style="padding:8px 20px">Next →</button>
+<button onclick="nextMoment()" class="pulse-btn">Next →</button>
 </div>
 
 <div id="moment2" class="hidden">
@@ -78,7 +129,7 @@ overflow:hidden;border:4px solid var(--primary)
 </div>
 <canvas id="scratchCanvas"></canvas>
 </div>
-<button onclick="showFinal()" class="pulse-btn" style="padding:8px 20px;margin-top:15px">Final Page 💌</button>
+<button onclick="showFinal()" class="pulse-btn" style="margin-top:15px">Final Page 💌</button>
 </div>
 </div>
 
@@ -96,7 +147,6 @@ overflow:hidden;border:4px solid var(--primary)
 <audio id="meow" src="meow.mp3" preload="auto"></audio>
 
 <script>
-/* Floating hearts */
 setInterval(()=>{
 if(document.querySelectorAll(".heart-bg").length > 25) return;
 let h=document.createElement("div");
@@ -108,7 +158,6 @@ document.body.appendChild(h);
 setTimeout(()=>h.remove(),5000);
 },400);
 
-/* Firecracker bursts */
 function firecrackers(){
 let end=Date.now()+3000;
 (function frame(){
@@ -118,18 +167,14 @@ if(Date.now()<end){requestAnimationFrame(frame);}
 })();
 }
 
-/* Start */
 function startApp(){
-document.getElementById("openBtn").classList.add("hidden");
-document.getElementById("askButtons").classList.remove("hidden");
-let suspense=document.getElementById("suspense");
+openBtn.classList.add("hidden");
+askButtons.classList.remove("hidden");
 suspense.volume=0.5;
 suspense.play().catch(()=>{});
 }
 
-/* No button */
 let noCount=0;
-const noBtn=document.getElementById("noBtn");
 noBtn.addEventListener("mouseover",()=>{
 if(noCount<4){
 noBtn.style.position="absolute";
@@ -137,47 +182,45 @@ noBtn.style.left=Math.random()*60+"%";
 noBtn.style.top=Math.random()*60+"%";
 noCount++;
 }else{
-document.getElementById("crySection").classList.remove("hidden");
-let meow=document.getElementById("meow");
+crySection.classList.remove("hidden");
 meow.volume=0.6;
 meow.currentTime=0;
 meow.play().catch(()=>{});
 }
 });
 
-/* YES */
-document.getElementById("yesBtn").onclick=()=>{
+yesBtn.onclick=()=>{
 confetti({particleCount:200,spread:80});
 firecrackers();
-
-document.getElementById("stage1").classList.add("hidden");
-document.getElementById("stage2").classList.remove("hidden");
-document.getElementById("suspense").pause();
-
-let song=document.getElementById("song");
+stage1.classList.add("hidden");
+stage2.classList.remove("hidden");
+suspense.pause();
 song.pause();
 song.currentTime=0;
 }
 
-/* Moments */
 function nextMoment(){
-document.getElementById("moment1").classList.add("hidden");
-document.getElementById("moment2").classList.remove("hidden");
+moment1.classList.add("hidden");
+moment2.classList.remove("hidden");
 initScratch();
 }
 
-/* Scratch */
 function initScratch(){
 let canvas=document.getElementById("scratchCanvas");
+let container=document.querySelector(".scratch-container");
+canvas.width=container.offsetWidth;
+canvas.height=container.offsetWidth;
 let ctx=canvas.getContext("2d");
-canvas.width=280;canvas.height=280;
-ctx.fillStyle="#ccc";ctx.fillRect(0,0,280,280);
+ctx.fillStyle="#ccc";
+ctx.fillRect(0,0,canvas.width,canvas.height);
 ctx.globalCompositeOperation="destination-out";
 function scratch(e){
 let r=canvas.getBoundingClientRect();
 let x=(e.clientX||e.touches[0].clientX)-r.left;
 let y=(e.clientY||e.touches[0].clientY)-r.top;
-ctx.beginPath();ctx.arc(x,y,25,0,Math.PI*2);ctx.fill();
+ctx.beginPath();
+ctx.arc(x,y,canvas.width/11,0,Math.PI*2);
+ctx.fill();
 }
 canvas.addEventListener("mousedown",scratch);
 canvas.addEventListener("touchstart",e=>{e.preventDefault();scratch(e)});
@@ -185,11 +228,9 @@ canvas.addEventListener("mousemove",scratch);
 canvas.addEventListener("touchmove",e=>{e.preventDefault();scratch(e)});
 }
 
-/* Final */
 function showFinal(){
-document.getElementById("stage2").classList.add("hidden");
-document.getElementById("stage3").classList.remove("hidden");
-let song=document.getElementById("song");
+stage2.classList.add("hidden");
+stage3.classList.remove("hidden");
 song.currentTime=20;
 song.volume=0.7;
 song.play().catch(()=>{});
@@ -201,7 +242,7 @@ I missed you Tanishka! You make every moment special. ❤️`;
 let i=0;
 function type(){
 if(i<msg.length){
-document.getElementById("finalText").innerHTML+=msg.charAt(i);
+finalText.innerHTML+=msg.charAt(i);
 i++;setTimeout(type,40);
 }}
 type();
