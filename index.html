@@ -44,10 +44,8 @@ overflow:hidden;border:4px solid var(--primary)
 
 <div class="glass-card">
 
-<!-- STAGE 1 -->
 <div id="stage1">
 <h1>Hey Tanishka ❤️</h1>
-
 <button id="openBtn" class="pulse-btn" onclick="startApp()" style="padding:15px 35px;margin-top:10px">Open My Heart</button>
 
 <div id="askButtons" class="hidden" style="margin-top:20px">
@@ -62,14 +60,13 @@ overflow:hidden;border:4px solid var(--primary)
 </div>
 </div>
 
-<!-- STAGE 2 -->
 <div id="stage2" class="hidden">
 <h3>Do you remember these moments?</h3>
 
 <div id="moment1">
 <img src="moment1.jpeg" class="moment-img">
 <p>When I wasn’t able to reach your birthday, I felt really bad… but when I did something and saw you happy, that meant everything to me ❤️</p>
-<button onclick="nextMoment(2)" class="pulse-btn" style="padding:8px 20px">Next →</button>
+<button onclick="nextMoment()" class="pulse-btn" style="padding:8px 20px">Next →</button>
 </div>
 
 <div id="moment2" class="hidden">
@@ -85,7 +82,6 @@ overflow:hidden;border:4px solid var(--primary)
 </div>
 </div>
 
-<!-- STAGE 3 -->
 <div id="stage3" class="hidden">
 <div class="heart-frame">
 <img src="us.jpeg">
@@ -97,9 +93,10 @@ overflow:hidden;border:4px solid var(--primary)
 
 <audio id="suspense" src="suspense.mp3" loop></audio>
 <audio id="song" src="song2.mp3"></audio>
+<audio id="meow" src="meow.mp3" preload="auto"></audio>
 
 <script>
-/* Floating hearts (limited for performance) */
+/* Floating hearts */
 setInterval(()=>{
 if(document.querySelectorAll(".heart-bg").length > 25) return;
 let h=document.createElement("div");
@@ -111,6 +108,16 @@ document.body.appendChild(h);
 setTimeout(()=>h.remove(),5000);
 },400);
 
+/* Firecracker bursts */
+function firecrackers(){
+let end=Date.now()+3000;
+(function frame(){
+confetti({particleCount:8,angle:60,spread:55,origin:{x:0,y:1}});
+confetti({particleCount:8,angle:120,spread:55,origin:{x:1,y:1}});
+if(Date.now()<end){requestAnimationFrame(frame);}
+})();
+}
+
 /* Start */
 function startApp(){
 document.getElementById("openBtn").classList.add("hidden");
@@ -120,7 +127,7 @@ suspense.volume=0.5;
 suspense.play().catch(()=>{});
 }
 
-/* No button escape inside card */
+/* No button */
 let noCount=0;
 const noBtn=document.getElementById("noBtn");
 noBtn.addEventListener("mouseover",()=>{
@@ -131,15 +138,25 @@ noBtn.style.top=Math.random()*60+"%";
 noCount++;
 }else{
 document.getElementById("crySection").classList.remove("hidden");
+let meow=document.getElementById("meow");
+meow.volume=0.6;
+meow.currentTime=0;
+meow.play().catch(()=>{});
 }
 });
 
 /* YES */
 document.getElementById("yesBtn").onclick=()=>{
 confetti({particleCount:200,spread:80});
+firecrackers();
+
 document.getElementById("stage1").classList.add("hidden");
 document.getElementById("stage2").classList.remove("hidden");
 document.getElementById("suspense").pause();
+
+let song=document.getElementById("song");
+song.pause();
+song.currentTime=0;
 }
 
 /* Moments */
